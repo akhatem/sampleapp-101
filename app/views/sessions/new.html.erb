@@ -1,0 +1,24 @@
+<% provide(:title, "Log in") %>
+<div class="reg-title">
+  <h2>Log in</h2></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-5">
+      <div class="signup-img"><%= image_tag("background4.png", alt: "Background", size: "670x450") %></div>
+    </div>
+    <div class="col-md-4 col-md-offset-1">
+        <%= form_for(:session, url: login_path) do |f| %>
+
+            <%= f.label :email%>
+            <%= f.email_field :email, placeholder: "Enter your email", class: 'form-control' %>
+
+            <%= f.label :password%>
+            <%= f.password_field :password, placeholder: "Enter password", class: 'form-control' %>
+
+            <%= f.submit "Log in", class: "btn btn-primary" %>
+        <% end %>
+        <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    </div>
+  </div>
+
+</div>
