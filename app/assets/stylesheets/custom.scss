@@ -163,6 +163,20 @@ div .reg-title{
     color: $deep-sky-blue;
   }
 
+.checkbox{
+  margin-top: -15px;
+  margin-bottom: 20px;
+  span{
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+#session_remember_me{
+  width: auto;
+  margin-left: 0;
+}
+
 /* footer */
 footer{
   margin-top: 45px;
