@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt'
 #Use postgresql as ActiveRecord in all environments
 gem 'pg'
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
