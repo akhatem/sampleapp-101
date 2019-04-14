@@ -18,7 +18,7 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
-
+  
   # => Returns a Random token
   #def new_token
   def User.new_token
