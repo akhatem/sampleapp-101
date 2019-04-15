@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
-
   before_save { email.downcase! }
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-._]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 254 },
@@ -18,7 +18,7 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
-  
+
   # => Returns a Random token
   #def new_token
   def User.new_token
