@@ -1,5 +1,5 @@
-User.create!(name:  "Admin User",
-             email: "admin@auth.me",
+User.create!(name:  "Kareem User",
+             email: "kareem@admin.me",
              password: "Asdasd",
              password_confirmation: "Asdasd",
              admin: true,
