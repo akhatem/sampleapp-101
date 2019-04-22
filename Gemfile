@@ -32,8 +32,10 @@ gem 'pg'
 gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+
+gem 'carrierwave'
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+ gem 'mini_magick'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

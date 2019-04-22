@@ -1,0 +1,47 @@
+
+c/c++:
+  content: "Having commitment to one language is smart"
+  created_at: <%= 1.minutes.ago %>
+  user: kareem
+
+AMD-Radeon:
+  content: "Check out adrenaline version at http://amdradeon.com"
+  created_at: <%= 3.months.ago %>
+  user: kareem
+
+Kungfu:
+  content: "I just watched Jet Li while being the most wanted man"
+  created_at: <%= 2.hours.ago %>
+  user: kareem
+
+most_recent:
+  content: "Writing a short test"
+  created_at: <%= Time.zone.now %>
+  user: kareem
+
+ants:
+  content: "As much as I hate them, I learn from them many things."
+  created_at: <%= 2.years.ago %>
+  user: lana
+
+tone:
+  content: "Your words are voice but your sarcastic tone doesn't."
+  created_at: <%= 20.hours.ago %>
+  user: lana
+
+hamada:
+  content: "This is archer's post and it's about hamada."
+  created_at: <%= 10.minutes.ago %>
+  user: archer
+
+stupid:
+  content: "We saw so many stupid people who's trying to be smart."
+  created_at: <%= 12.minutes.ago %>
+  user: archer
+
+<% 30.times do |n|  %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= rand(1..30).days.ago %>
+  user: kareem
+<% end %>
