@@ -14,7 +14,7 @@
 
     <%= f.label :image do %>
       <%= f.file_field :image, image_preview: true, 'up-data': '.image-preview'.to_json %>
-      <%= image_tag @user.image_url(:thumb).to_s, class: 'image-preview' %>
+      <%= image_tag @user.image_url(:thumb).to_s if @user.image?, class: 'image-preview' %>
     <% end %>
 
     <%= f.submit yield(:button_text), class: "btn btn-primary" %>
