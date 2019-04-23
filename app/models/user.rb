@@ -11,8 +11,13 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false}
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validate :image_size
 
   has_many :microposts, dependent: :destroy
+
+  mount_uploader :image, ImageUploader
+
+
 
   #class << self
 # => Returns the hash digest of the given string
@@ -73,6 +78,12 @@ class User < ApplicationRecord
 # => See "following users" for the full implementation
   def feed
     Micropost.where("user_id = ?", id)
+  end
+
+  def image_size
+    if image.size > 3.megabytes
+      errors.add(:image, "Must be less than or equal 3MB!")
+    end
   end
 
 # => Forgets a user and removes it from the remember

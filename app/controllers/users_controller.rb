@@ -3,12 +3,12 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:user_edit, :update]
   before_action :admin_user,     only: :destroy
 
-  def show
+  def show # => user profile
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
   end
 
-  def index
+  def index # => Show all users in the Users tab
     @users = User.order('name asc').paginate(page: params[:page])
   end
 
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                    :password_confirmation)
+                                    :password_confirmation, :image)
   end
 
   # Before filters

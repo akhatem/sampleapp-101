@@ -19,4 +19,10 @@ class StaticPagesController < ApplicationController
   def contact
     render 'static_pages/contact.html.erb'
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :image)
+  end
 end
