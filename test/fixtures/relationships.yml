@@ -1,0 +1,15 @@
+one:
+  follower: kareem
+  followed: lana
+
+two:
+  follower: kareem
+  followed: michael
+
+three:
+  follower: lana
+  followed: michael
+
+four:
+  follower: archer
+  followed: michael

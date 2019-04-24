@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   def home
     if logged_in?
-      @micropost = current_user.microposts.build
+      @micropost = current_user.microposts.build if logged_in?
       @feed_items = current_user.feed.paginate(page: params[:page])
     #render 'static_pages/home.html.erb'
     end
@@ -18,11 +18,5 @@ class StaticPagesController < ApplicationController
 
   def contact
     render 'static_pages/contact.html.erb'
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :image)
   end
 end

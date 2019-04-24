@@ -3,7 +3,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
-
+  # => Validations
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-._]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 254 },
@@ -13,14 +13,25 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validate :image_size
 
+  # => User has many microposts
   has_many :microposts, dependent: :destroy
-
+  # => For user profile image
   mount_uploader :image, ImageUploader
-
-
+  # => User has many relationships ## active
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+                                  has_many :following, through: :active_relationships, source: :followed
+  has_many :following, through: :active_relationships, source: :followed
+  # => User has many relationships ## passive
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships,  source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   #class << self
-# => Returns the hash digest of the given string
+  # => Returns the hash digest of the given string
   #def digest(string)
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -28,8 +39,8 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-# => Returns a Random token
-#def new_token
+  # => Returns a Random token
+  #def new_token
   def User.new_token
     SecureRandom.urlsafe_base64
   end
@@ -74,10 +85,12 @@ class User < ApplicationRecord
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
-# => Defines a proto-feed_items
-# => See "following users" for the full implementation
+# => Returns a user's status feed
   def feed
-    Micropost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
 
   def image_size
@@ -89,6 +102,21 @@ class User < ApplicationRecord
 # => Forgets a user and removes it from the remember
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  # Follows a user
+  def follow(other_user)
+    following << other_user
+  end
+
+  #unfollows a user
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  #Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
   end
 
   private
