@@ -4,7 +4,11 @@
     <section class="user_info">
       <h1>
         <%= @user.name %>
-        <%= (image_tag @user.image.url.to_s, size: "70x70") %>
+        <% if has_image? %>
+          <%= (image_tag @user.image.url.to_s, size: "90x90") %>
+        <% else %>
+          <%= user_image @user %>
+        <% end %>
       </h1>
     </section>
     <section class="stats">

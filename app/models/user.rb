@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validate :image_size
 
+
   # => User has many microposts
   has_many :microposts, dependent: :destroy
   # => For user profile image

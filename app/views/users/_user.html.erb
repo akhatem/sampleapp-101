@@ -1,5 +1,9 @@
 <li>
-  <%= (user_image user) %>
+  <% if has_image? %>
+    <%= (image_tag user.image.url.to_s, size: "90x90") %>
+  <% else %>
+    <%= user_image user %>
+  <% end %>
   <%= link_to user.name, user %>
   <% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,

@@ -31,6 +31,10 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+
+  def has_image?
+    !current_user.image.nil?
+  end
   # => Forgets a presistent session
   def forget(user)
     user.forget
